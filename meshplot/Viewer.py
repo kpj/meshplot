@@ -509,3 +509,6 @@ class Viewer():
         with open(uid, "w") as f:
             f.write(self.to_html())
         print("Plot saved to file %s."%uid)
+
+    def _repr_html_(self):
+        return self.to_html()

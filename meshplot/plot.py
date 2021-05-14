@@ -36,14 +36,9 @@ class Subplot():
 
                 for r in self.rows:
                     hbox = HBox(r)
-                    if rendertype == "JUPYTER":
-                        display(hbox)
                     self.hboxes.append(hbox)
 
             out = self.rows[int(s[2]/s[1])][s[2]%s[1]]
-            if rendertype == "JUPYTER":
-                with out:
-                    display(view._renderer)
             self.rows[int(s[2]/s[1])][s[2]%s[1]] = view
 
     def save(self, filename=""):
@@ -90,13 +85,10 @@ def plot(v, f=None, c=None, uv=None, n=None, shading={}, plot=None, return_plot=
     else: # Plot mesh
         obj_id = view.add_mesh(v, f, c, uv=uv, n=n, shading=shading, texture_data=texture_data)
 
-    if not plot and rendertype == "JUPYTER":
-        display(view._renderer)
-
     if rendertype == "OFFLINE":
         view.save(filename)
 
-    if return_plot or rendertype == "WEBSITE":
+    if return_plot or rendertype == "WEBSITE" or rendertype == "JUPYTER":
         return view
 
 def subplot(v, f=None, c=None, uv=None, n=None, shading={}, s=[1, 1, 0], data=None, texture_data=None, **kwargs):
